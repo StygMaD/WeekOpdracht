@@ -1,0 +1,203 @@
+<html>
+
+<head>
+    <style>
+        #hart {
+            color: red;
+        }
+    </style>
+    <script>
+
+        // SPELER  GEDEELTE <-------------------------->   // 
+
+        var toevoegen = [];
+        var welkeKaartenGepakt = [];
+
+        var toevoegenDealer = [];
+        var welkeKaartenGepaktDealer = [];
+
+        function kaartPakken() {
+
+            var soortKaart = ["♠", "♥", "♣", "♦"]; 
+            var kaartenDeck = [2, 3, 4, 5, 6, 7, 8, 9, 10, "boer", "vrouw", "koning", "aas"];
+
+            // van deze random nieuwe losse functie maken, ook voor 2x aanroepen bij start, 
+            // maar ook voor nieuwe kaarten als kaart al gepakt is
+
+            var x = Math.floor(Math.random() * 4);
+            var y = Math.floor(Math.random() * 12);  //0 = 2 | 8 = 10 | 9 = boer | 12 = aas
+
+            //console.log(y);
+            console.log(soortKaart[x]);
+            console.log(kaartenDeck[y]);
+
+            // var a = soortKaart[x] + kaartenDeck[y];
+            // for (var i = 0; i < welkeKaartenGepakt.length; i++) {
+            //     if (welkeKaartenGepakt[i] == a) {
+
+            //         alert("deze is al gepakt");
+            //     }
+
+            //     else {
+            //         alert("via else gegaan");
+            //         welkeKaartenGepakt.push(soortKaart[x] + kaartenDeck[y]); //pusht hier in de array
+
+            //     }
+            // }
+
+            welkeKaartenGepakt.push(soortKaart[x] + kaartenDeck[y]);
+            document.getElementById("uitvoer").innerHTML = (soortKaart[x] + kaartenDeck[y]);
+
+
+
+            if (y == 9 || y == 10 || y == 11 || y == 12) {
+                //alert("je hebt een plaatje");
+                toevoegen.push(kaartenDeck[8]);
+            }
+            else {
+                //alert("je hebt een cijfer");
+                toevoegen.push(kaartenDeck[y]); // toevoegen aan array, om op te tellen punten totaal
+            }
+
+            document.getElementById("gepaktekaarten").innerHTML = welkeKaartenGepakt;
+
+            var somKaarten = 0;
+            for (var i = 0; i < toevoegen.length; i++) {
+                somKaarten += toevoegen[i]
+            }
+
+            document.getElementById("optellen").innerHTML = somKaarten;
+            console.log(toevoegen)
+
+            if (somKaarten > 21) {
+                alert("Meer dan 21, je verliest dit potje!")
+
+            }
+        }
+
+        // DEALER GEDEELTE <--------------------------------------------------------->   // 
+        // toevoegenDealer.lenght < 0 
+
+        //     function dealer2kaartenstart(){
+        //     if (toevoegenDealer && toevoegenDealer.lenght ){
+        //         alert("zit in de if");
+        //         dealerkaartPakken();
+        //     }
+        //     else{
+        //         alert("hij is else");
+        //         dealerkaartPakken();
+        //        //dealerkaartPakken();
+        //     }
+
+        // }
+
+        // somKaarten = 0;
+
+        // function dealer2kaartenstart()  {
+        // if (somKaarten <= 15){
+        //     dealer3kaartenstart();
+        // }
+        // else if(somKaarten >21){
+        //     alert("speler wint");
+        // }
+        // }
+
+        function dealer2kaartenstart() {
+            var soortKaart = ["♠", "♥", "♣", "♦"]; //de harten/ruiten nog rood maken via CSS
+            var kaartenDeck = [2, 3, 4, 5, 6, 7, 8, 9, 10, "boer", "vrouw", "koning", "aas"];  // excl boer-aas vooralsnog
+
+            var x = Math.floor(Math.random() * 4);
+            var y = Math.floor(Math.random() * 12);  //0 = 2 | 8 = 10 | 9 = boer | 12 = aas
+            document.getElementById("uitvoerD").innerHTML = (soortKaart[x] + kaartenDeck[y]);
+
+            welkeKaartenGepaktDealer.push(soortKaart[x] + kaartenDeck[y]);
+
+            if (y == 9 || y == 10 || y == 11 || y == 12) {
+                //alert("je hebt een plaatje");
+                toevoegenDealer.push(kaartenDeck[8]);
+            }
+            else {
+                //alert("je hebt een cijfer");
+                toevoegenDealer.push(kaartenDeck[y]); // toevoegen aan array, om op te tellen punten totaal
+            }
+
+
+            document.getElementById("gepaktekaartenDealer").innerHTML = welkeKaartenGepaktDealer;
+
+            var somKaarten = 0;
+            for (var i = 0; i < toevoegenDealer.length; i++) {
+                somKaarten += toevoegenDealer[i]
+            }
+
+            document.getElementById("optellenD").innerHTML = somKaarten;
+            console.log(toevoegenDealer)
+
+
+
+            
+            if (somKaarten > 21) {
+                alert("De dealer heeft teveel, speler wint")
+
+            }
+
+        }
+
+function checkWin(){
+a =  document.getElementById("optellen").innerHTML; // speler
+b =  document.getElementById("optellenD").innerHTML; // dealer
+if ( a > b){
+alert("de speler wint");
+}
+else{
+    alert("de dealer wint");
+}
+
+}
+
+
+    </script>
+</head>
+
+<body>
+
+    <button onclick="kaartPakken()">Pak een kaart</button>
+    <button onclick=location.reload();>Reset</button>
+    
+        <p></p>
+        <textarea id="uitvoer"></textarea>
+        <textarea> laatst gepakte kaart</textarea>
+    
+    <br>
+    <br>
+    <textarea id="optellen"> </textarea>
+    <textarea> puntentotaal</textarea>
+    <br>
+    <br>
+    <textarea id="gepaktekaarten"></textarea>
+    <textarea gepaktekaarten">welke kaarten gepakt</textarea>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <button onclick="dealer2kaartenstart()">Check</button>
+    <br>
+    <br>
+    <textarea id="uitvoerD"></textarea>
+    <textarea> laatst gepakte kaart Dealer</textarea>
+    <br>
+    <br>
+    <textarea id="optellenD"> </textarea>
+    <textarea> puntentotaal Dealer</textarea>
+    <br>
+    <br>
+    <textarea id="gepaktekaartenDealer"></textarea>
+    <textarea gepaktekaarten">welke kaarten gepakt door Dealer</textarea>
+<br>
+<br>
+<button onclick="checkWin()">Wie wint?</button>
+
+
+</body>
+
+</html>
